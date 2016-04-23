@@ -86,30 +86,31 @@
                 <div class="panel-heading clickable">
                     <form action = "" method = "post">
                       
-                      <input type="hidden" name="gListName" value="{{ names }}" > 
+                      <input type="hidden" name="gListName" value="{{ loop.index0 }}" > 
                       <button type="submit" class="btn-link">{{ names }}</button> <!--a href="ListPage.html"></a>-->
                     
                       <span class="pull-right "><i class="glyphicon glyphicon-minus"></i></span>
                     </form>
                 </div>
-                 {% for items in glist[loop.index0] %}
+
                 <div class="panel-body">
                     <ul id="check-list-box" class="list-group checked-list-box">
-                   
-                        <li class="list-group-item" data-color="success">{{ items }}</li>
+                   {% for lists in glist[loop.index0] %}
+                        <li class="list-group-item" data-color="success">{{ lists }}</li>
                        <!--<li class="list-group-item">Carrots, 50lbs.</li>
                         <li class="list-group-item" data-color="success">Tomatoes, 2</li>
                         <li class="list-group-item" data-color="info">Potatoes, 3 </li>
                         <li class="list-group-item" data-color="warning">Leeks, 2 bunches</li>
                         <li class="list-group-item" data-color="danger">Green Pepper, 1</li> -->
-                
+                  {%endfor%}
+
                     </ul>
                 </div>
-              {%endfor%}
-              {%endfor%}
+              
+              
              </div>
             </div>
-     
+     {%endfor%}
           <!-- <div class="col-lg-4">
             <div class="panel panel-info">
                 <div class="panel-heading clickable">

@@ -16,11 +16,10 @@ def index():
 	glists = user.getGListsItemList()
 	gListNames = user.getGListsNames()
 	if request.method == 'POST':
-		gListNames = int(request.form['gListName'])
+		gListName = int(request.form['gListName'])
 
 		user.updateCurrentListIndex(gListName)
 
-		#return render_template('index.html', glist = glists)
 		return redirect(url_for('ListPage'))
 	else: 
 		#return glists
@@ -29,23 +28,20 @@ def index():
 def ListPage(): 
 
 	gListName = user.getCurrentGlistName()
+	glists = user.getGLists()
 	glist = user.getCurrentGList()
+	index = user.getCurrentListIndex()
 
 	if request.method == 'POST':
 
 		if request.form['delete'] == 'deletelist': 
-			glists.remove(glist)
-			groceryLists.updateLists(glists)
+			glists.pop(index)
+			user.updateGLists(glists)
 			return redirect(url_for('index'))
-		elif request.form['delete'] == "deleteitem": 
-			value = str(request.form.get('check'))
-			return value
-		else: 
+
+		else:
 			newItem = str(request.form['newitem'])
-			
-			glist.append(newItem)
-			glists[gListName] = glist
-			groceryLists.updateLists(glists)
+			user.addNewCurrentListItem(newItem)
 			return redirect(url_for('ListPage'))
 	else: 
 
@@ -54,16 +50,11 @@ def ListPage():
 def NewList(): 
 
 	if request.method == 'POST':
-		glists = groceryLists.getLists()
+		glists = user.getGLists()
 
 		newListName = str(request.form['newlistname'])
-		firstItem = str(request.form['firstitem'])
+		user.addNewGroceryList(newListName)
 
-		newList = []
-		newList.append(firstItem)
-
-		glists.append(newList)
-		groceryLists.updateLists(glists)
 
 		return redirect(url_for('index'))
 	else: 
