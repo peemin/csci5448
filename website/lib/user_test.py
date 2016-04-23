@@ -93,6 +93,8 @@ class UserTest(unittest.TestCase):
         result = self.user1.getCurrentGList()
         self.assertEqual(result[-1],item)
         print("\n test_addNewCurrentListItem:")
+        print(self.user1.getGLists())
+        print("\n\n")
         print(result)
         
 if __name__ == '__main__':

@@ -9,9 +9,7 @@ class User(object):
         self.name = email
         
         self.glistController = GroceryLists(self.user)
-        self.groceryLists = None
-        self.__setGlists()  # set grocery list from the database
-        
+ 
         self.currentListIndex = 0
 
     def getCurrentListIndex(self): 
@@ -45,54 +43,45 @@ class User(object):
     
     # returns a dictionary of all the grocery lists
     def getGLists(self):
-        return self.groceryLists
+        return self.glistController.getLists()
             
     def getGListsNames(self):
-        names = []
-        for gl in self.groceryLists:
-            names.append(gl['gname'])
-        return names
+        return self.glistController.getGroceryListNames()
     
     def getGListsItemList(self):
-        items = []
-        for gl in self.groceryLists:
-            items.append(gl['items'])
-        return items
-            
-    # private method for User class
-    # gets grocery lists from the database
-    def __setGlists(self):
-        self.groceryLists = self.glistController.getLists()
-    
+        return self.glistController.getGroceryItemsList()
+
     def updateGLists(self, glists):
         self.glistController.updateLists(glists)
-        self.__setGlists()
-        if self.groceryLists == glists:
+        
+        if self.getGLists() == glists:    
             return True
         else:
             return False
     
     def deleteGLists(self):
         self.glistController.deleteLists()
-        self.__setGlists()
-        if self.groceryLists is None:
+        if self.getGLists() is None:
             return True
         else:
             return False
         
     def getCurrentGList(self):
-        glist = self.groceryLists[self.currentListIndex]["items"]
+        glist = self.getGLists()[self.currentListIndex]["items"]
         return glist
     
     def getCurrentGlistName(self):
-        return self.groceryLists[self.currentListIndex]["gname"]
+        return self.getGLists()[self.currentListIndex]["gname"]
     
     def addNewGroceryList(self, gname):
-        glist = self.groceryLists + [{"gname":gname}]
+        glist = self.getGLists() + [{"gname":gname}]
         self.updateGLists(glist)
         
     def addNewCurrentListItem(self,item):
-        self.groceryLists[self.currentListIndex]["items"].append(item)
+        glists = self.getGLists()
+        glists[self.currentListIndex]["items"].append(item)
+        self.updateGLists(glists)
+
 
         
     
