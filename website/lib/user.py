@@ -73,8 +73,8 @@ class User(object):
     def getCurrentGlistName(self):
         return self.getGLists()[self.currentListIndex]["gname"]
     
-    def addNewGroceryList(self, gname):
-        glist = self.getGLists() + [{"gname":gname}]
+    def addNewGroceryList(self, gname, item):
+        glist = self.getGLists() + [{"gname":gname,"items":[item]}]
         self.updateGLists(glist)
         
     def addNewCurrentListItem(self,item):
