@@ -16,8 +16,7 @@ glist3 = {"items":['carrot, 1 bunch','peas, 2 bag'],"gname":"grocery list 4"}
 glists = [glist0,glist1,glist2,glist3]
 
 user.updateGLists(glists)
-print("Old name: " + user.getName())
-print("New name: " + user.getName())
+print(user.getName())
 print("Grocery Lists")
 print(user.getGLists())
 

@@ -2,56 +2,61 @@
 from flask import render_template, request, redirect, url_for
 from app import app
 from flask.ext.session import Session
-from grocery import GroceryLists
-from user import User 
+from lib.user import User 
 
 user = User('Magic1@unicorn.com', 'awesomesauce')
-groceryLists = GroceryLists(user.getName())
+user.exist()
+username = str(user.getName())
 
 #uses flask here and jinja2 in index.html
 
 @app.route('/')
 @app.route('/index.html', methods=['GET', 'POST'])
 def index():
-	glists = groceryLists.getLists()
+	glists = user.getGLists()
 	if request.method == 'POST':
 		gListName = int(request.form['gListName'])
-		user.updateCurrentList(gListName)
+
+		user.updateCurrentListIndex(gListName)
 
 		#return render_template('index.html', glist = glists)
 		return redirect(url_for('ListPage'))
 	else: 
-		return render_template('index.html', glist = glists)
+		#return glists
+		return render_template('index.html', glist = glists, name = username)
 @app.route('/ListPage.html', methods = ['GET', 'POST'])
 def ListPage(): 
 
-	gListName = user.getCurrentList()
+	gListName = user.getCurrentGlistName()
+	glist = user.getCurrentGList()
 
 	if request.method == 'POST':
-		newItem = str(request.form['newitem'])
-		
-		glists = groceryLists.getLists()
-		glist = glists[gListName]
-		glist.append(newItem)
 
-		glists[gListName] = glist
-		groceryLists.updateLists(glists)
-
-		return redirect(url_for('ListPage'))
+		if request.form['delete'] == 'deletelist': 
+			glists.remove(glist)
+			groceryLists.updateLists(glists)
+			return redirect(url_for('index'))
+		elif request.form['delete'] == "deleteitem": 
+			value = str(request.form.get('check'))
+			return value
+		else: 
+			newItem = str(request.form['newitem'])
+			
+			glist.append(newItem)
+			glists[gListName] = glist
+			groceryLists.updateLists(glists)
+			return redirect(url_for('ListPage'))
 	else: 
-
-		glists = groceryLists.getLists()
-		glist = glists[gListName]   
 
 		return render_template('ListPage.html', glistname = gListName, glist = glist)
 @app.route('/NewList.html', methods = ['GET', 'POST'])
 def NewList(): 
 
-	if request.method == 'POST': 
+	if request.method == 'POST':
+		glists = groceryLists.getLists()
+
 		newListName = str(request.form['newlistname'])
 		firstItem = str(request.form['firstitem'])
-
-		glists = groceryLists.getLists()
 
 		newList = []
 		newList.append(firstItem)

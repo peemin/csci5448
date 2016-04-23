@@ -13,6 +13,12 @@ class User(object):
         self.__setGlists()  # set grocery list from the database
         
         self.currentListIndex = 0
+
+    def getCurrentListIndex(self): 
+        return self.currentList
+    
+    def updateCurrentListIndex(self, newlistIndex):
+        self.currentList = newlistIndex
     
     def exist(self):
         if self.db.getUser(self.user) is None: return False
@@ -62,14 +68,7 @@ class User(object):
         else:
             return False
         
-    def getCurrentListIndex(self): 
-        return self.currentListIndex
-    
-    def updateCurrentListIndex(self, newlistIndex):
-        self.currentList = newlistIndex 
-
     def getCurrentGList(self):
-        print ("Get Current Grocery List")
         glist = self.groceryLists[self.currentListIndex]["items"]
         return glist
     

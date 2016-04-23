@@ -37,7 +37,7 @@
 <div class="container">
 
       <div class="starter-template">
-        <h1> Grocery List {{glistname + 1}} </h1>
+        <h1> {{glistname}} </h1>
         <!--p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>-->
       </div>
 
@@ -47,18 +47,22 @@
    
     <div class="container-fluid">
       <div class="col-lg-10">
-        <ul class="list-group checked-list-box">
+        <input type = "checkbox" class="checkbox list-group checked-list-box">
           {% for items in glist %}
-          <li class="list-group-item"> {{ items }}</li>
+          <li class="list-group-item" name ="check" value="{{items}}"> {{ items }}</li>
      
         {% endfor %}
         </ul>
       </div>
       <div class="col-lg-2">
          <button type= "button" class="btn btn-success margin-bottom-sm" data-toggle="modal" data-target="#AddItem"><span class="glyphicon glyphicon-plus"></span> Add Item</button>
-          <button type = "button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog"></span> Edit List</button>
+         <form action = "" method = "post" novalidate>
+          <button type = "submit" class="btn btn-info" data-target="#DeleteList" name = "delete" value = "deleteitem"><span class="glyphicon glyphicon-minus"></span> Delete Item</button>
+          <button type = "submit" class="btn btn-danger" data-target="#DeleteList" name = "delete" value = "deletelist"><span class="glyphicon glyphicon-minus"></span> Delete List</button>
+
+        </form>
     </div>
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="AddItem" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
     <!-- Modal content-->
