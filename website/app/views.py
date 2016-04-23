@@ -34,15 +34,15 @@ def ListPage():
 
 	if request.method == 'POST':
 
-		if request.form['delete'] == 'deletelist': 
+		'''if request.form['delete'] == 'deletelist': 
 			glists.pop(index)
 			user.updateGLists(glists)
-			return redirect(url_for('index'))
+			return redirect(url_for('index'))'''
 
-		else:
-			newItem = str(request.form['newitem'])
-			user.addNewCurrentListItem(newItem)
-			return redirect(url_for('ListPage'))
+		
+		newItem = str(request.form['newitem'])
+		user.addNewCurrentListItem(newItem)
+		return redirect(url_for('ListPage'))
 	else: 
 
 		return render_template('ListPage.html', glistname = gListName, glist = glist)
@@ -53,7 +53,8 @@ def NewList():
 		glists = user.getGLists()
 
 		newListName = str(request.form['newlistname'])
-		user.addNewGroceryList(newListName)
+		newListitem = str(request.form['firstitem'])
+		user.addNewGroceryList(newListName, newListitem)
 
 
 		return redirect(url_for('index'))
