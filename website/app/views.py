@@ -6,16 +6,17 @@ from lib.user import User
 
 user = User('Magic1@unicorn.com', 'awesomesauce')
 user.exist()
-username = str(user.getName())
+username = user.getName()
 
 #uses flask here and jinja2 in index.html
 
 @app.route('/')
 @app.route('/index.html', methods=['GET', 'POST'])
 def index():
-	glists = user.getGLists()
+	glists = user.getGListsItemList()
+	gListNames = user.getGListsNames()
 	if request.method == 'POST':
-		gListName = int(request.form['gListName'])
+		gListNames = int(request.form['gListName'])
 
 		user.updateCurrentListIndex(gListName)
 
@@ -23,7 +24,7 @@ def index():
 		return redirect(url_for('ListPage'))
 	else: 
 		#return glists
-		return render_template('index.html', glist = glists, name = username)
+		return render_template('index.html', glist = glists, name = username, gnames = gListNames)
 @app.route('/ListPage.html', methods = ['GET', 'POST'])
 def ListPage(): 
 

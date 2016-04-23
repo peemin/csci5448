@@ -79,21 +79,24 @@
     {% endblock %}
   <div class="container-fluid">
           {% block grocery %}
-
+        
+          {% for names in gnames%}
            <div class="col-lg-4">
             <div class="panel panel-success">
                 <div class="panel-heading clickable">
                     <form action = "" method = "post">
-                      <input type="hidden" name="gListName" value="{{ loop.index0 }}" > 
-                      <button type="submit" class="btn-link">{{ value2 }}</button> <!--a href="ListPage.html"></a>-->
+                      
+                      <input type="hidden" name="gListName" value="{{ names }}" > 
+                      <button type="submit" class="btn-link">{{ names }}</button> <!--a href="ListPage.html"></a>-->
+                    
                       <span class="pull-right "><i class="glyphicon glyphicon-minus"></i></span>
                     </form>
                 </div>
-           
+                 {% for items in glist[loop.index0] %}
                 <div class="panel-body">
                     <ul id="check-list-box" class="list-group checked-list-box">
                    
-                        <li class="list-group-item" data-color="success">stuff</li>
+                        <li class="list-group-item" data-color="success">{{ items }}</li>
                        <!--<li class="list-group-item">Carrots, 50lbs.</li>
                         <li class="list-group-item" data-color="success">Tomatoes, 2</li>
                         <li class="list-group-item" data-color="info">Potatoes, 3 </li>
@@ -102,7 +105,8 @@
                 
                     </ul>
                 </div>
-              
+              {%endfor%}
+              {%endfor%}
              </div>
             </div>
      
