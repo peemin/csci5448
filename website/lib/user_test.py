@@ -83,9 +83,10 @@ class UserTest(unittest.TestCase):
         self.user1.addNewGroceryList(gname)
         result = self.user1.getGListsNames()
         self.assertEqual(result[-1],gname)
+        gl = self.user1.getGLists()
         self.user1.updateGLists(self.glists)
         print("\n test_addNewGroceryList:")
-        print (result)
+        print (gl)
         
     def test_addNewCurrentListItem(self):
         item = 'olives, 10 can'
