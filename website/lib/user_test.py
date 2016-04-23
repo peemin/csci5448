@@ -3,10 +3,13 @@ from user import User
 
 class UserTest(unittest.TestCase):
     def setUp(self):
-        self.glist0 = {"items":['spinach, 1 bunch','corn, 4 can'],"gname":"grocery list 1"}
-        self.glist1 = {"items":['broccli, 1 bunch','peas, 2 bag'],"gname":"grocery list 2"}
-        self.glist2 = {"items":['chicken, 1 whole','corn, 4 can'],"gname":"grocery list 3"}
-        self.glist3 = {"items":['carrot, 1 bunch','peas, 2 bag'],"gname":"grocery list 4"}
+        self.glistNames = ["grocery list 1","grocery list 2","grocery list 3","grocery list 4"]
+        self.itemsList = [['spinach, 1 bunch','corn, 4 can'],['broccli, 1 bunch','peas, 2 bag'],
+                          ['chicken, 1 whole','corn, 4 can'],['carrot, 1 bunch','peas, 2 bag']]
+        self.glist0 = {"items":self.itemsList[0],"gname":self.glistNames[0]}
+        self.glist1 = {"items":self.itemsList[1],"gname":self.glistNames[1]}
+        self.glist2 = {"items":self.itemsList[2],"gname":self.glistNames[2]}
+        self.glist3 = {"items":self.itemsList[3],"gname":self.glistNames[3]}
         self.glists = [self.glist0,self.glist1,self.glist2,self.glist3]
         
         self.name1 = 'Magic1@unicorn.com'
@@ -44,6 +47,8 @@ class UserTest(unittest.TestCase):
         self.assertIsNotNone(result)
         self.user2.deleteGLists()
         self.assertIsNone(self.user2.getGLists())
+        print ("\n test_getGroceryLists:")
+        print (result)
                 
     def test_updateGroceryLists(self):
         
@@ -54,13 +59,41 @@ class UserTest(unittest.TestCase):
         
       
     def test_getCurrentGList(self):
-        self.user1.updateCurrentList(1)
+        self.user1.updateCurrentListIndex(1)
         self.assertEqual(self.user1.getCurrentGList(),self.glist1["items"])
     
     def test_getCurrentGlistName(self):
-        self.user1.updateCurrentList(3)
+        self.user1.updateCurrentListIndex(3)
         self.assertEqual(self.user1.getCurrentGlistName(),self.glist3["gname"])
         
+    def test_getGListsNames(self):        
+        result = self.user1.getGListsNames()
+        self.assertEqual(result,self.glistNames)
+        print("\n test_getGListsNames:")
+        print (result)
+        
+    def test_getGListsItemList(self):        
+        result = self.user1.getGListsItemList()
+        self.assertEqual(result,self.itemsList)
+        print("\ntest_getGListsItemList")
+        print (result)  
+        
+    def test_addNewGroceryList(self):
+        gname = "New Item List"
+        self.user1.addNewGroceryList(gname)
+        result = self.user1.getGListsNames()
+        self.assertEqual(result[-1],gname)
+        self.user1.updateGLists(self.glists)
+        print("\n test_addNewGroceryList:")
+        print (result)
+        
+    def test_addNewCurrentListItem(self):
+        item = 'olives, 10 can'
+        self.user1.addNewCurrentListItem(item)
+        result = self.user1.getCurrentGList()
+        self.assertEqual(result[-1],item)
+        print("\n test_addNewCurrentListItem:")
+        print(result)
         
 if __name__ == '__main__':
     unittest.main()

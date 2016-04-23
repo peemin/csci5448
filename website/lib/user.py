@@ -15,10 +15,10 @@ class User(object):
         self.currentListIndex = 0
 
     def getCurrentListIndex(self): 
-        return self.currentList
+        return self.currentListIndex
     
     def updateCurrentListIndex(self, newlistIndex):
-        self.currentList = newlistIndex
+        self.currentListIndex = newlistIndex
     
     def exist(self):
         if self.db.getUser(self.user) is None: return False
@@ -46,7 +46,19 @@ class User(object):
     # returns a dictionary of all the grocery lists
     def getGLists(self):
         return self.groceryLists
+            
+    def getGListsNames(self):
+        names = []
+        for gl in self.groceryLists:
+            names.append(gl['gname'])
+        return names
     
+    def getGListsItemList(self):
+        items = []
+        for gl in self.groceryLists:
+            items.append(gl['items'])
+        return items
+            
     # private method for User class
     # gets grocery lists from the database
     def __setGlists(self):
@@ -74,4 +86,14 @@ class User(object):
     
     def getCurrentGlistName(self):
         return self.groceryLists[self.currentListIndex]["gname"]
+    
+    def addNewGroceryList(self, gname):
+        glist = self.groceryLists + [{"gname":gname}]
+        self.updateGLists(glist)
+        
+    def addNewCurrentListItem(self,item):
+        self.groceryLists[self.currentListIndex]["items"].append(item)
+
+        
+    
         
