@@ -1,6 +1,11 @@
 {% extends "index.html" %}
 {% block head %}
 {{ super() }}
+<link href="../static/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<link href="../static/font-awesome.css" rel="stylesheet">
+<link href="../static/build.css" rel = "stylesheet">
+<link href="../static/magic-check.css" rel="stylesheet">
+
   <title>List Page </title>
 {% endblock %}
 
@@ -44,10 +49,29 @@
     </div><!-- /.container -->
 {%endblock%}
 {%block grocery%}
-   
-    <div class="container-fluid">
-      <div class="col-lg-10">
-        <ul class="checkbox list-group checked-list-box">
+<div class="col-lg-10">
+<ul class="checkbox list-group checked-list-box">
+          {% for items in glist %}
+          <input type="hidden" name="item" value="{{ items}}" > 
+          <li class="list-group-item" name ="check"> {{ items }}</li>
+     
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="col-lg-2">
+         <a href="AddItem.html" class="btn btn-success margin-bottom-sm" role="button"><span class="glyphicon glyphicon-plus"></span> Add List</a>
+         
+         <form action = "" method = "post" novalidate>
+          <button type = "submit" class="btn btn-info" data-target="#DeleteList" name = "delete" value = "deleteitem"><span class="glyphicon glyphicon-minus"></span> Delete Item</button>
+          <button type = "submit" class="btn btn-danger" data-target="#DeleteList" name = "delete" value = "deletelist"><span class="glyphicon glyphicon-minus"></span> Delete List</button>
+
+        </form>
+    </div>
+
+
+
+
+       <!-- <ul class="checkbox list-group checked-list-box">
           {% for items in glist %}
           <li class="list-group-item" name ="check" value="{{items}}"> {{ items }}</li>
      
@@ -55,33 +79,14 @@
         </ul>
       </div>
       <div class="col-lg-2">
-         <button type= "button" class="btn btn-success margin-bottom-sm" data-toggle="modal" data-target="#AddItem"><span class="glyphicon glyphicon-plus"></span> Add Item</button>
+         <a href="AddItem.html" class="btn btn-success margin-bottom-sm" role="button"><span class="glyphicon glyphicon-plus"></span> Add List</a>
+         
          <form action = "" method = "post" novalidate>
           <button type = "submit" class="btn btn-info" data-target="#DeleteList" name = "delete" value = "deleteitem"><span class="glyphicon glyphicon-minus"></span> Delete Item</button>
           <button type = "submit" class="btn btn-danger" data-target="#DeleteList" name = "delete" value = "deletelist"><span class="glyphicon glyphicon-minus"></span> Delete List</button>
 
         </form>
-    </div>
-    <div id="AddItem" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-       
-        <form action = "" method = "post" role="form" novalidate>
-          <div class="col-lg-11">
-            <div class="form-group">
-              <label for="text">New Item</label>
-              <input type="text" class="form-control" name="newitem" value = "item">
-            </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
+    </div>-->
   
 {% endblock %}
 {% block js_footer %}

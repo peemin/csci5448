@@ -34,17 +34,17 @@ def ListPage():
 
 	if request.method == 'POST':
 
-		'''if request.form['delete'] == 'deletelist': 
+		if request.form['delete'] == 'deletelist': 
 			glists.pop(index)
 			user.updateGLists(glists)
-			return redirect(url_for('index'))'''
-
-		
-		newItem = str(request.form['newitem'])
-		user.addNewCurrentListItem(newItem)
-		return redirect(url_for('ListPage'))
-	else: 
-
+			return redirect(url_for('index'))
+		elif request.form['delete'] == 'deleteitem':
+			if request.form.get('items'):
+				glist.remove(item)
+				glists[index] = gListName
+				user.updateGLists(glists)
+				return redirect(url_for('index'))
+	else: 	
 		return render_template('ListPage.html', glistname = gListName, glist = glist)
 @app.route('/NewList.html', methods = ['GET', 'POST'])
 def NewList(): 
@@ -61,3 +61,12 @@ def NewList():
 	else: 
 
 		return render_template('NewList.html')
+@app.route('/AddItem.html', methods =['GET', 'POST'])
+def AddItem():
+
+	if request.method == 'POST': 
+		newItem = str(request.form['newitem'])
+		user.addNewCurrentListItem(newItem)
+		return redirect(url_for('ListPage'))
+	else: 
+		return render_template('AddItem.html')
