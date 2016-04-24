@@ -1,5 +1,6 @@
 from dbController import MongodbController
 from grocery import GroceryLists
+from pantry import PantryLists
 
 class User(object):
     def __init__(self,email,password):
@@ -9,6 +10,7 @@ class User(object):
         self.name = email
         
         self.glistController = GroceryLists(self.user)
+        self.plistController = PantryLists(self.user)
  
         self.currentListIndex = 0
 

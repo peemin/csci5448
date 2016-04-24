@@ -1,7 +1,7 @@
 from applist import Applist
 class PantryLists(Applist):
     def __init__(self,user):
-        super().__init__(user)
+        super(PantryLists,self).__init__(user)
 
     def getLists(self):
         return self.db.getPLists(self.user)
