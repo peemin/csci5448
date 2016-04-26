@@ -65,15 +65,19 @@
 
       <div class="starter-template">
         <h1>Create New List</h1>
-        
-        <!--p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>-->
+
       </div>
     </div><!-- /.container -->
     {% endblock %}
+    
+<!-- code defining the new list form -->
+<!-- sets form equal to post to send data back to views.py -->
   <div class="container-fluid">
       <form action = "" method = "post" role="form" novalidate>
       <div class="form-group">
         <label for="newlistname">New List Name</label>
+        <!-- the variable newlistname is uses in views.py to process the variable acquired
+        here. Similar code was used wherever users entered data -->
         <input type="text" class="form-control" name="newlistname">
       </div>
       <div class="form-group">

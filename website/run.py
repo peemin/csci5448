@@ -1,4 +1,6 @@
 #!flask/bin/python
+
+#This code pulls the init.py file from the app folder to run the website
 import os 
 
 from app import app

@@ -1,4 +1,10 @@
- {% block head %}
+<!--below is an example of a jinja2 expression. Jinja2 is a python-esque scripting language
+  for html that allows people to send information from html files to python scripts. In
+  our case, it allows us to send information from here back to our views.py script, or vice
+  versa. It also allows for dynamically rendering pages-->
+  <!-- the webpages were created witht he help from Bootstrap. The class = tag is used
+to get styles from the boostrap css and javascript pages. The css files and javascript files included are part of the Bootstrap 3 starter template-->
+{% block head %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,6 +42,7 @@
   </head>
 {% endblock %}
    {% block navbar %}
+   <!-- code for navbar -->
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -57,6 +64,7 @@
             <li><a href="#contact">Pantry</a></li>
           </ul>
           <ul class = "nav navbar-nav navbar-right settings-button-right">
+            <!-- gets the user name from flask and displays it on the navbar -->
             <li><p class="navbar-text">Hi {{ name }}</p></li>
             <a href="#settings" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-cog"></span> Settings</a>
           </ul>
@@ -71,10 +79,9 @@
 
         <h1>Grocery Lists</h1>
 
+        <!-- code for add list button --> 
          <a href="NewList.html" class="btn btn-success margin-top-md" role="button"><span class="glyphicon glyphicon-plus"></span> Add List</a>
-      
-        
-        <!--p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>-->
+    
       </div>
        
 
@@ -83,30 +90,31 @@
   <div class="container-fluid">
           {% block grocery %}
         
+          <!-- gets the grocery lists names from views.py and loops through them -->
           {% for names in gnames%}
            <div class="col-lg-4">
             <div class="panel panel-success">
                 <div class="panel-heading clickable">
                     <form action = "" method = "post">
                       
+                      <!-- passes the index back to views.py as gListName -->
                       <input type="hidden" name="gListName" value="{{ loop.index0 }}" > 
-                      <button type="submit" class="btn-link">{{ names }}</button> <!--a href="ListPage.html"></a>-->
-                    
+
+                      <!-- code to display the grocery list name -->
+                      <button type="submit" class="btn-link">{{ names }}</button> 
                       <span class="pull-right "><i class="glyphicon glyphicon-minus"></i></span>
                     </form>
                 </div>
 
                 <div class="panel-body">
                     <ul id="check-list-box" class="list-group checked-list-box">
-                   {% for lists in glist[loop.index0] %}
+                      <!-- cycles through the individual items in each grocery list -->
+                   {% for lists in glist %}
+                    {% for items in lists %}
                         <li class="list-group-item" data-color="success">{{ lists }}</li>
-                       <!--<li class="list-group-item">Carrots, 50lbs.</li>
-                        <li class="list-group-item" data-color="success">Tomatoes, 2</li>
-                        <li class="list-group-item" data-color="info">Potatoes, 3 </li>
-                        <li class="list-group-item" data-color="warning">Leeks, 2 bunches</li>
-                        <li class="list-group-item" data-color="danger">Green Pepper, 1</li> -->
+                
                   {%endfor%}
-
+                  {%endfor%}
                     </ul>
                 </div>
               

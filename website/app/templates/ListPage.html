@@ -1,12 +1,14 @@
+<!-- this expression allows us to inherit most of the code from html so we don't have to rewrite many of the stylistic elements defined in index.html -->
 {% extends "index.html" %}
 {% block head %}
-{{ super() }}
-<link href="../static/awesome-bootstrap-checkbox.css" rel="stylesheet">
-<link href="../static/font-awesome.css" rel="stylesheet">
-<link href="../static/build.css" rel = "stylesheet">
-<link href="../static/magic-check.css" rel="stylesheet">
+<!-- alows us to inherit the things defined in block head in index.html -->
+  {{ super() }}
+  <link href="../static/awesome-bootstrap-checkbox.css" rel="stylesheet">
+  <link href="../static/font-awesome.css" rel="stylesheet">
+  <link href="../static/build.css" rel = "stylesheet">
+  <link href="../static/magic-check.css" rel="stylesheet">
 
-  <title>List Page </title>
+    <title>List Page </title>
 {% endblock %}
 
 {% block navbar %}
@@ -40,24 +42,24 @@
 {%block page_title %}
 
 <div class="container">
+<!-- displays the current grocery list name -->
+  <div class="starter-template">
+    <h1> {{glistname}} </h1>
+  </div>
 
-      <div class="starter-template">
-        <h1> {{glistname}} </h1>
-        <!--p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>-->
-      </div>
-
-    </div><!-- /.container -->
+</div><!-- /.container -->
 {%endblock%}
 {%block grocery%}
 <div class="col-lg-10">
-<ul class="checkbox list-group checked-list-box">
-          {% for items in glist %}
-          <input type="hidden" name="item" value="{{ items}}" > 
-          <li class="list-group-item" name ="check"> {{ items }}</li>
-     
-        {% endfor %}
-        </ul>
-      </div>
+  <ul class="checkbox list-group checked-list-box">
+<!-- cycles through the items in the current grocery list and displays them -->
+    {% for items in glist %}
+    <input type="hidden" name="item" value="{{ items}}" > 
+    <li class="list-group-item" name ="check"> {{ items }}</li>
+
+    {% endfor %}
+  </ul>
+</div>
       <div class="col-lg-2">
          <a href="AddItem.html" class="btn btn-success margin-bottom-sm" role="button"><span class="glyphicon glyphicon-plus"></span> Add List Item</a>
          
@@ -68,26 +70,6 @@
         </form>
     </div>
 
-
-
-
-       <!-- <ul class="checkbox list-group checked-list-box">
-          {% for items in glist %}
-          <li class="list-group-item" name ="check" value="{{items}}"> {{ items }}</li>
-     
-        {% endfor %}
-        </ul>
-      </div>
-      <div class="col-lg-2">
-         <a href="AddItem.html" class="btn btn-success margin-bottom-sm" role="button"><span class="glyphicon glyphicon-plus"></span> Add List</a>
-         
-         <form action = "" method = "post" novalidate>
-          <button type = "submit" class="btn btn-info" data-target="#DeleteList" name = "delete" value = "deleteitem"><span class="glyphicon glyphicon-minus"></span> Delete Item</button>
-          <button type = "submit" class="btn btn-danger" data-target="#DeleteList" name = "delete" value = "deletelist"><span class="glyphicon glyphicon-minus"></span> Delete List</button>
-
-        </form>
-    </div>-->
-  
 {% endblock %}
 {% block js_footer %}
   {{ super() }}

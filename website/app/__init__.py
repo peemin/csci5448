@@ -1,10 +1,7 @@
-import os
 from flask import Flask
-import pymongo
-from pymongo import MongoClient
 
-# Specify the database
+#Creates a flask object app to run the program
 app = Flask(__name__)
-#SESSION_TYPE = 'mongodb'
 
+#imports the views.py file
 from app import views
