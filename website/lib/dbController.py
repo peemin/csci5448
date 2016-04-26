@@ -4,6 +4,9 @@ import os
 
 class  MongodbController(object):
     def __init__(self):
+
+        #If you would like to run this program locally, uncomment the below two lines and 
+        #comment out MONGO_URL, self.client, and self.db
         #self.client = MongoClient()
         #self.db = self.client.grocery
         MONGO_URL = os.environ.get('MONGODB_URI')
