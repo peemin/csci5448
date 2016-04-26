@@ -10,7 +10,7 @@ username = user.getName()
 
 #uses flask here and jinja2 in index.html
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/index.html', methods=['GET', 'POST'])
 def index():
 	glists = user.getGListsItemList()
@@ -39,11 +39,8 @@ def ListPage():
 			user.updateGLists(glists)
 			return redirect(url_for('index'))
 		elif request.form['delete'] == 'deleteitem':
-			if request.form.get('items'):
-				glist.remove(item)
-				glists[index] = gListName
-				user.updateGLists(glists)
-				return redirect(url_for('index'))
+			return redirect(url_for('ListPage'))
+				
 	else: 	
 		return render_template('ListPage.html', glistname = gListName, glist = glist)
 @app.route('/NewList.html', methods = ['GET', 'POST'])

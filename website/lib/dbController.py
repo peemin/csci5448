@@ -1,10 +1,14 @@
 from pymongo import MongoClient
 from datetime import datetime
+import os
 
 class  MongodbController(object):
     def __init__(self):
-        self.client = MongoClient()
-        self.db = self.client.grocery
+        #self.client = MongoClient()
+        #self.db = self.client.grocery
+        MONGO_URL = os.environ.get('MONGODB_URI')
+        self.client = MongoClient(MONGO_URL)
+        self.db = self.client.heroku_9hsj8wcw
 
     def getUser(self, uname):
         return self.db.users.find_one({'user': uname})
