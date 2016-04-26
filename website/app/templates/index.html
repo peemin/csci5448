@@ -92,6 +92,7 @@ to get styles from the boostrap css and javascript pages. The css files and java
         
           <!-- gets the grocery lists names from views.py and loops through them -->
           {% for names in gnames%}
+          {% set outerloop = loop%}
            <div class="col-lg-4">
             <div class="panel panel-success">
                 <div class="panel-heading clickable">
@@ -109,11 +110,9 @@ to get styles from the boostrap css and javascript pages. The css files and java
                 <div class="panel-body">
                     <ul id="check-list-box" class="list-group checked-list-box">
                       <!-- cycles through the individual items in each grocery list -->
-                   {% for lists in glist %}
-                    {% for items in lists %}
-                        <li class="list-group-item" data-color="success">{{ lists }}</li>
+                   {% for items in glist[outerloop.index0] %}
+                        <li class="list-group-item" data-color="success">{{ items }}</li>
                 
-                  {%endfor%}
                   {%endfor%}
                     </ul>
                 </div>
